@@ -1,14 +1,23 @@
-import React, { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import React from 'react';
 
-import App from './App';
+import * as ReactDOM from 'react-dom/client';
+
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
 import Dash from './Dash';
 
-const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
+const client = new ApolloClient({
+  uri: 'https://flyby-router-demo.herokuapp.com/',
+
+  cache: new InMemoryCache(),
+});
+
+// Supported in React 18+
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <StrictMode>
+  <ApolloProvider client={client}>
     <Dash />
-  </StrictMode>
+  </ApolloProvider>
 );
